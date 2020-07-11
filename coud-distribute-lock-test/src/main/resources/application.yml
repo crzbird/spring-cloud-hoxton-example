@@ -1,0 +1,10 @@
+
+spring:
+  redis:
+    host: 200.200.200.17
+    password: copote185!*%
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 50
+        max-active: 50

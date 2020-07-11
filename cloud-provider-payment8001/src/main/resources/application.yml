@@ -1,0 +1,33 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1 #采样率值 0-1之间，1表示全部采集
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/db2019?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: username
+    password: password
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.springcloud.entities
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: payment8001
+    prefer-ip-address: true
+    #最后一次心跳90秒内没发心跳则被剔除
+    lease-expiration-duration-in-seconds: 90
+    #30秒一次心跳包
+    lease-renewal-interval-in-seconds: 30

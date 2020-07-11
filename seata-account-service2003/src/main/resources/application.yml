@@ -1,0 +1,57 @@
+#server:
+#  port: 2003
+#
+spring:
+#  application:
+#    name: seata-account-service
+#  cloud:
+#    alibaba:
+#      seata:
+#        # 自定义事务组名称需要与seata-server中的对应
+#        tx-service-group: ddd_tx_group
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_account?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: username
+    password: password
+feign:
+  hystrix:
+    enabled: false
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+
+seata:
+  enabled: true
+  application-id: seata-account-service
+  tx-service-group: my_test_tx_group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      namespace:
+      #serverAddr: localhost:8848
+      serverAddr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      password: password "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      #server-addr: localhost:8848
+      server-addr: 127.0.0.1:8848
+      namespace:
+      password: password "nacos"
+      password: "nacos"
+

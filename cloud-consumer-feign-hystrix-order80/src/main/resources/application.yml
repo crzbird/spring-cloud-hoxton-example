@@ -1,0 +1,24 @@
+server:
+  port: 80
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 3000 # feign 的超时设置
+        readTimeout: 3000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000 # 设置hystrix的超时时间为3000ms, 之后才调用降级方法
+#需要同时设置feign和hystrix的超时时间，否则会按最小的时间超时
